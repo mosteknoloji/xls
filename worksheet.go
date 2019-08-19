@@ -19,14 +19,14 @@ type WorkSheet struct {
 	bs   *boundsheet
 	wb   *WorkBook
 	Name string
-	rows map[uint16]*Row
+	Rows map[uint16]*Row
 	//NOTICE: this is the max row number of the sheet, so it should be count -1
 	MaxRow uint16
 	parsed bool
 }
 
 func (w *WorkSheet) Row(i int) *Row {
-	row := w.rows[uint16(i)]
+	row := w.Rows[uint16(i)]
 	if row != nil {
 		row.wb = w.wb
 	}
@@ -34,7 +34,7 @@ func (w *WorkSheet) Row(i int) *Row {
 }
 
 func (w *WorkSheet) parse(buf io.ReadSeeker) {
-	w.rows = make(map[uint16]*Row)
+	w.Rows = make(map[uint16]*Row)
 	b := new(bof)
 	var bof_pre *bof
 	for {
@@ -189,7 +189,7 @@ func (w *WorkSheet) addRange(rang Ranger, ch contentHandler) {
 func (w *WorkSheet) addContent(row_num uint16, ch contentHandler) {
 	var row *Row
 	var ok bool
-	if row, ok = w.rows[row_num]; !ok {
+	if row, ok = w.Rows[row_num]; !ok {
 		info := new(rowInfo)
 		info.Index = row_num
 		row = w.addRow(info)
@@ -202,11 +202,11 @@ func (w *WorkSheet) addRow(info *rowInfo) (row *Row) {
 		w.MaxRow = info.Index
 	}
 	var ok bool
-	if row, ok = w.rows[info.Index]; ok {
+	if row, ok = w.Rows[info.Index]; ok {
 		row.info = info
 	} else {
 		row = &Row{info: info, cols: make(map[uint16]contentHandler)}
-		w.rows[info.Index] = row
+		w.Rows[info.Index] = row
 	}
 	return
 }

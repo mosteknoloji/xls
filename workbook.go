@@ -3,10 +3,11 @@ package xls
 import (
 	"bytes"
 	"encoding/binary"
-	"golang.org/x/text/encoding/charmap"
 	"io"
 	"os"
 	"unicode/utf16"
+
+	"golang.org/x/text/encoding/charmap"
 )
 
 //xls workbook type
@@ -297,7 +298,7 @@ func (w *WorkBook) ReadAllCells(max int) (res [][]string) {
 					leng = max
 				}
 				temp := make([][]string, leng)
-				for k, row := range sheet.rows {
+				for k, row := range sheet.Rows {
 					data := make([]string, 0)
 					if len(row.cols) > 0 {
 						for _, col := range row.cols {
