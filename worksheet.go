@@ -194,7 +194,7 @@ func (w *WorkSheet) addContent(row_num uint16, ch contentHandler) {
 		info.Index = row_num
 		row = w.addRow(info)
 	}
-	row.cols[ch.FirstCol()] = ch
+	row.Cols[ch.FirstCol()] = ch
 }
 
 func (w *WorkSheet) addRow(info *rowInfo) (row *Row) {
@@ -205,7 +205,7 @@ func (w *WorkSheet) addRow(info *rowInfo) (row *Row) {
 	if row, ok = w.Rows[info.Index]; ok {
 		row.info = info
 	} else {
-		row = &Row{info: info, cols: make(map[uint16]contentHandler)}
+		row = &Row{info: info, Cols: make(map[uint16]contentHandler)}
 		w.Rows[info.Index] = row
 	}
 	return
