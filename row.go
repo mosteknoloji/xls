@@ -14,7 +14,7 @@ type rowInfo struct {
 type Row struct {
 	wb   *WorkBook
 	info *rowInfo
-	cols map[uint16]contentHandler
+	Cols map[uint16]contentHandler
 }
 
 //Col Get the Nth Col from the Row, if has not, return nil.
