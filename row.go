@@ -21,11 +21,11 @@ type Row struct {
 //Suggest use Has function to test it.
 func (r *Row) Col(i int) string {
 	serial := uint16(i)
-	if ch, ok := r.cols[serial]; ok {
+	if ch, ok := r.Cols[serial]; ok {
 		strs := ch.String(r.wb)
 		return strs[0]
 	} else {
-		for _, v := range r.cols {
+		for _, v := range r.Cols {
 			if v.FirstCol() <= serial && v.LastCol() >= serial {
 				strs := v.String(r.wb)
 				return strs[serial-v.FirstCol()]
